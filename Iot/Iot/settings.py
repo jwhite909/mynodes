@@ -25,7 +25,7 @@ SECRET_KEY = 'lcdb1xlncgfvbg+f7=^l-ld=hbfniqj6*bx&0x3zj+5&p1=25_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.246.1.88','127.0.0.1',]
+ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1',]
 
 
 # Application definition
