@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+  <title>Network | Basic usage</title>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.js"></script>
+  <link href="vis-network.min.css" rel="stylesheet" type="text/css" />
+
+  <style type="text/css">
+    #mynetwork {
+      width: 1600px;
+      height: 780px;
+      border: 5px solid lightgray;
+    }
+  </style>
+</head>
+<body>
+
+<p>
+  Vizualisation  : {{vizualisation.name}}
+</p>
+
+<div id="mynetwork"></div>
+
+<script type="text/javascript">
+
+
+
+  // create an array with nodes
+  var nodes = new vis.DataSet([
+ 
+{% for node in node_list %}
+   {id:{{node.id}},label:'{{node.ip}}'},
+{% endfor %}
+  ]);
+
+  // create an array with edges
+  var edges = new vis.DataSet([
+ 
+{% for edge in edge_list %}
+   {from:{{ edge.src.id}}, to:{{edge.dest.id}}, label:'{{edge.label}}'},
+{% endfor %}
+  ]);
+
+
+  // create a network
+  var container = document.getElementById('mynetwork');
+  var data = {
+    nodes: nodes,
+    edges: edges
+  };
+  var options = {
+  edges:{
+    arrows: {
+      to:     {enabled: true, scaleFactor:1, type:'arrow'}
+    }
+    },
+    layout: {
+    randomSeed: undefined,
+    improvedLayout:true,
+    hierarchical: {
+      enabled:true,
+      levelSeparation: 150,
+      nodeSpacing: 100,
+      treeSpacing: 200,
+      blockShifting: true,
+      edgeMinimization: true,
+      parentCentralization: true,
+      direction: 'UD',        // UD, DU, LR, RL
+      sortMethod: 'directed'   // hubsize, directed
+    }
+  }
+
+
+  };
+  var network = new vis.Network(container, data, options);
+
+</script>
+
+
+</body>
+</html>
+
+
